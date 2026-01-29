@@ -1,0 +1,227 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# UI Component Patterns
+
+## Design System Foundation
+
+### Base UI Components
+All base UI components are located in [src/components/ui/](mdc:src/components/ui/) and follow the shadcn/ui pattern:
+
+- **Form Elements**: [src/components/ui/input.tsx](mdc:src/components/ui/input.tsx), [src/components/ui/textarea.tsx](mdc:src/components/ui/textarea.tsx), [src/components/ui/select.tsx](mdc:src/components/ui/select.tsx)
+- **Layout**: [src/components/ui/card.tsx](mdc:src/components/ui/card.tsx), [src/components/ui/dialog.tsx](mdc:src/components/ui/dialog.tsx), [src/components/ui/sheet.tsx](mdc:src/components/ui/sheet.tsx)
+- **Navigation**: [src/components/ui/tabs.tsx](mdc:src/components/ui/tabs.tsx), [src/components/ui/navigation-menu.tsx](mdc:src/components/ui/navigation-menu.tsx)
+- **Feedback**: [src/components/ui/toast.tsx](mdc:src/components/ui/toast.tsx), [src/components/ui/alert.tsx](mdc:src/components/ui/alert.tsx), [src/components/ui/progress.tsx](mdc:src/components/ui/progress.tsx)
+- **Accordion**: [src/components/ui/accordion.tsx](mdc:src/components/ui/accordion.tsx) - Used in FAQ section
+
+### Custom Design System Components
+Extended components in [src/components/design-system/](mdc:src/components/design-system/):
+
+#### Button Component
+The main button component at [src/components/design-system/button/Button.tsx](mdc:src/components/design-system/button/Button.tsx) supports:
+
+```typescript
+// Usage examples
+<Button variant="primary" size="md">Get Started Free</Button>
+<Button variant="outline" size="sm">Learn More</Button>
+<Button variant="ghost" size="icon"><Menu /></Button>
+```
+
+### Landing Page Section Components
+Located in [src/components/landing/](mdc:src/components/landing/):
+
+- **FeaturesSection**: 6-card grid with Lucide icons
+- **HowItWorksSection**: 3-step horizontal timeline
+- **FAQSection**: Accordion-based FAQ with Radix UI
+
+## Component Definition Standards
+
+### Function Components Only
+**IMPORTANT**: All components must be defined as normal functions:
+
+```typescript
+// ✅ CORRECT - Use function declaration
+interface CardProps {
+  title: string;
+  children: React.ReactNode;
+  variant?: 'default' | 'outlined';
+}
+
+export function Card({ title, children, variant = 'default' }: CardProps) {
+  return (
+    <div className={cn(
+      "card-base",
+      variant === 'outlined' && "border-2"
+    )}>
+      <h3>{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+// ❌ INCORRECT - Do not use React.FC
+export const Card: React.FC<CardProps> = ({ title, children, variant }) => {
+  // ...
+};
+```
+
+## ViralClips Styling Patterns
+
+### Brand Colors
+```css
+/* Primary */
+--viralclips-primary: #8b5cf6;        /* violet-500 */
+--viralclips-primary-hover: #7c3aed;  /* violet-600 */
+
+/* Backgrounds */
+--viralclips-bg-dark: #09090b;        /* near black - hero */
+--viralclips-bg-secondary: #18181b;   /* zinc-900 - sections */
+--viralclips-bg-tertiary: #27272a;    /* zinc-800 - cards */
+
+/* Text */
+--viralclips-text-primary: #fafafa;   /* zinc-100 */
+--viralclips-text-secondary: #a1a1aa; /* zinc-400 */
+```
+
+### Section Badge Pattern
+Used in FeaturesSection, HowItWorksSection, FAQSection:
+
+```typescript
+<span className="inline-block px-4 py-2 rounded-full bg-violet-500/10 text-violet-400 text-sm font-medium mb-4">
+  Section Label
+</span>
+```
+
+### Feature Card Pattern
+```typescript
+<div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-violet-500/50 transition-colors group">
+  <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4 group-hover:bg-violet-500/20 transition-colors">
+    <Icon className="w-6 h-6 text-violet-400" />
+  </div>
+  <h3 className="text-xl font-semibold text-zinc-100 mb-2">Title</h3>
+  <p className="text-zinc-400">Description</p>
+</div>
+```
+
+### Outlined Text Effect (Hero)
+```typescript
+<span
+  style={{
+    color: "transparent",
+    WebkitTextStroke: "2px #8b5cf6",
+    textStroke: "2px #8b5cf6",
+  } as React.CSSProperties}
+>
+  Viral Clips
+</span>
+```
+
+## Utility Function
+The `cn()` function in [src/lib/utils.tsx](mdc:src/lib/utils.tsx) combines `clsx` and `tailwind-merge`:
+
+```typescript
+import { cn } from '@/lib/utils';
+
+// Conditional classes
+<div className={cn(
+  "base-classes",
+  condition && "conditional-classes",
+  className // allows external className override
+)}>
+```
+
+### Component Variants
+Use `class-variance-authority` for component variants:
+
+```typescript
+import { cva } from 'class-variance-authority';
+
+const buttonVariants = cva(
+  "base-classes",
+  {
+    variants: {
+      variant: {
+        primary: "bg-violet-600 hover:bg-violet-700 text-white",
+        secondary: "bg-zinc-800 hover:bg-zinc-700 text-white",
+      },
+      size: {
+        sm: "px-3 py-1.5 text-sm",
+        md: "px-4 py-2 text-base",
+        lg: "px-6 py-3 text-lg",
+      }
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
+    }
+  }
+);
+```
+
+## Responsive Design
+
+### Mobile-First Approach
+- Start with mobile styles
+- Use Tailwind breakpoints: `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
+- Test on multiple screen sizes
+
+### Mobile Detection
+Use the mobile hook from [src/hooks/use-mobile.tsx](mdc:src/hooks/use-mobile.tsx):
+
+```typescript
+import { useIsMobile } from '@/hooks/use-mobile';
+
+function Component() {
+  const isMobile = useIsMobile();
+
+  return (
+    <div className={isMobile ? "mobile-classes" : "desktop-classes"}>
+      {/* Content */}
+    </div>
+  );
+}
+```
+
+## Accessibility Patterns
+
+### Radix UI Integration
+All components use Radix UI primitives for accessibility:
+- Proper ARIA attributes
+- Keyboard navigation
+- Screen reader support
+- Focus management
+
+### Form Accessibility
+- Use proper labels with [src/components/ui/label.tsx](mdc:src/components/ui/label.tsx)
+- Implement form validation
+- Provide error messages
+- Use proper input types
+
+## Animation Patterns
+
+### Gradient Background Animation (Hero)
+```typescript
+<div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-pulse" />
+```
+
+### Scroll Indicator Animation
+```typescript
+<div className="animate-bounce">
+  <div className="w-6 h-10 rounded-full border-2 border-zinc-600 flex justify-center pt-2">
+    <div className="w-1 h-2 bg-zinc-400 rounded-full" />
+  </div>
+</div>
+```
+
+### Loading States
+- Use skeleton components from [src/components/ui/skeleton.tsx](mdc:src/components/ui/skeleton.tsx)
+- Implement loading spinners on buttons
+- Show progress indicators
+
+## Logo Carousel Pattern
+The [src/components/LogosCarousel.tsx](mdc:src/components/LogosCarousel.tsx) uses CSS animations:
+- Infinite scroll animation defined in [src/index.css](mdc:src/index.css)
+- Tripled logos for seamless looping
+- Platform icons: YouTube, TikTok, Instagram, X, LinkedIn, Facebook

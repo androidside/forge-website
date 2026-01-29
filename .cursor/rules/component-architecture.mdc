@@ -1,0 +1,125 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Component Architecture Guide
+
+## Component Organization
+
+### Landing Page Components
+Located in [src/components/landing/](mdc:src/components/landing/), these are sections of the main landing page:
+
+- **FeaturesSection**: [src/components/landing/FeaturesSection.tsx](mdc:src/components/landing/FeaturesSection.tsx) - 6-card grid showcasing AI features
+- **HowItWorksSection**: [src/components/landing/HowItWorksSection.tsx](mdc:src/components/landing/HowItWorksSection.tsx) - 3-step process timeline
+- **FAQSection**: [src/components/landing/FAQSection.tsx](mdc:src/components/landing/FAQSection.tsx) - Accordion-based FAQ
+
+### Design System Components
+Located in [src/components/design-system/](mdc:src/components/design-system/), these are custom components that extend the base UI components:
+
+- **Button**: [src/components/design-system/button/Button.tsx](mdc:src/components/design-system/button/Button.tsx) - Custom button with multiple variants
+- **Alert Dialog**: [src/components/design-system/alert-dialog.tsx](mdc:src/components/design-system/alert-dialog.tsx) - Custom alert dialogs
+- **Badge**: [src/components/design-system/badge/badge.tsx](mdc:src/components/design-system/badge/badge.tsx) - Status indicators
+
+### Base UI Components
+Located in [src/components/ui/](mdc:src/components/ui/), these are foundational components built on Radix UI:
+
+- **Form Components**: Input, TextArea, Select, Checkbox, Radio Group
+- **Layout Components**: Card, Dialog, Sheet, Drawer, Accordion
+- **Navigation**: Tabs, Breadcrumb, Navigation Menu
+- **Feedback**: Toast, Alert, Progress, Skeleton
+- **Data Display**: Table, Badge, Avatar
+- **Interactive**: Button, Slider, Switch, Toggle
+
+### Page Components
+Located in [src/pages/](mdc:src/pages/), these are the main route components:
+
+- [src/pages/Landing.tsx](mdc:src/pages/Landing.tsx) - Main landing page with hero, features, FAQ, CTA
+- [src/pages/Terms.tsx](mdc:src/pages/Terms.tsx) - Terms of Service (required for API approval)
+- [src/pages/Privacy.tsx](mdc:src/pages/Privacy.tsx) - Privacy Policy (required for GDPR/CCPA)
+
+### Shared Components
+- [src/components/TopNavigation.tsx](mdc:src/components/TopNavigation.tsx) - Main navigation with logo, anchor links, mobile menu
+- [src/components/Footer.tsx](mdc:src/components/Footer.tsx) - Footer with product, legal, and connect links
+- [src/components/LogosCarousel.tsx](mdc:src/components/LogosCarousel.tsx) - Platform logos carousel (YouTube, TikTok, Instagram, etc.)
+
+## Component Patterns
+
+### Component Definition Style
+**IMPORTANT**: Always use normal functions instead of `React.FC` to define components:
+
+```typescript
+// ✅ CORRECT - Use normal functions
+interface ComponentProps {
+  title: string;
+  children?: React.ReactNode;
+}
+
+export function Component({ title, children }: ComponentProps) {
+  return (
+    <div>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  );
+}
+
+// ❌ INCORRECT - Do not use React.FC
+export const Component: React.FC<ComponentProps> = ({ title, children }) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  );
+};
+```
+
+### Button Variants
+The Button component supports multiple variants:
+- `primary` - Main action buttons (violet gradient)
+- `secondary` - Secondary actions
+- `outline` - Bordered buttons
+- `ghost` - Minimal styling
+- `destructive` - Dangerous actions
+- `success` - Positive actions
+- `link` - Link-style buttons
+
+### Landing Page Section Pattern
+Each landing section follows this structure:
+
+```typescript
+export function SectionName() {
+  return (
+    <section id="section-id" className="py-24 px-4 bg-zinc-950">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-2 rounded-full bg-violet-500/10 text-violet-400 text-sm font-medium mb-4">
+            Section Label
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">
+            Section Headline
+          </h2>
+          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+            Section subheadline
+          </p>
+        </div>
+        {/* Section content */}
+      </div>
+    </section>
+  );
+}
+```
+
+### Utility Functions
+- [src/lib/utils.tsx](mdc:src/lib/utils.tsx) - Contains the `cn()` function for class name merging
+- [src/hooks/use-mobile.tsx](mdc:src/hooks/use-mobile.tsx) - Mobile detection hook
+- [src/hooks/use-toast.ts](mdc:src/hooks/use-toast.ts) - Toast notification hook
+- [src/hooks/use-swipe.tsx](mdc:src/hooks/use-swipe.tsx) - Swipe gesture detection
+
+## Styling Approach
+- Uses Tailwind CSS for utility-first styling
+- Dark theme by default (zinc-950 backgrounds)
+- Violet (#8b5cf6) as primary accent color
+- Component variants managed through `class-variance-authority`
+- Responsive design with mobile-first approach

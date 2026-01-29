@@ -1,0 +1,174 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Troubleshooting Guide
+
+## Common Issues and Solutions
+
+### Build Issues
+
+#### TypeScript Compilation Errors
+- **Issue**: TypeScript errors during build
+- **Solution**:
+  - Check [tsconfig.json](mdc:tsconfig.json) configuration
+  - Run `npm run lint:fix` to auto-fix issues
+  - Ensure all imports are properly typed
+
+#### Vite Build Failures
+- **Issue**: Vite build fails
+- **Solution**:
+  - Check [vite.config.ts](mdc:vite.config.ts) configuration
+  - Verify path aliases are correct (`@` maps to `/src`)
+  - Ensure all dependencies are installed
+
+### Development Issues
+
+#### Hot Reload Not Working
+- **Issue**: Changes not reflecting in browser
+- **Solution**:
+  - Restart dev server with `npm run dev`
+  - Check for syntax errors in console
+  - Clear browser cache
+
+#### Import Path Issues
+- **Issue**: Module not found errors
+- **Solution**:
+  - Use `@/` prefix for src imports (e.g., `@/components/landing/FeaturesSection`)
+  - Check file extensions (.tsx for components)
+  - Verify file exists in correct location
+
+### Component Issues
+
+#### React.FC vs Function Components
+- **Issue**: Inconsistency in component definitions
+- **Solution**:
+  - **ALWAYS** use function declarations: `export function Component() {}`
+  - **NEVER** use `React.FC`: `export const Component: React.FC = () => {}`
+  - This is a project-wide standard for consistency
+
+#### Button Component Problems
+- **Issue**: Button styling not working
+- **Solution**:
+  - Check [src/components/design-system/button/Button.tsx](mdc:src/components/design-system/button/Button.tsx) for correct variant usage
+  - Ensure proper className merging with `cn()` utility
+  - Verify Tailwind classes are valid
+
+#### Navigation Issues
+- **Issue**: Navigation not working
+- **Solution**:
+  - Check [src/components/TopNavigation.tsx](mdc:src/components/TopNavigation.tsx) for anchor link configuration
+  - Verify routes in [src/App.tsx](mdc:src/App.tsx) match navigation links
+  - Ensure React Router is properly configured
+  - For anchor links, verify section IDs match (features, how-it-works, faq)
+
+#### Anchor Link Scrolling
+- **Issue**: Clicking nav links doesn't scroll to section
+- **Solution**:
+  - Ensure section has correct `id` attribute (e.g., `id="features"`)
+  - Check `scrollToSection` function in TopNavigation
+  - Verify smooth scrolling behavior is supported
+
+### Styling Issues
+
+#### Tailwind Classes Not Working
+- **Issue**: Tailwind classes not applying
+- **Solution**:
+  - Check if Tailwind is properly configured
+  - Verify class names are correct
+  - Use `cn()` utility for conditional classes
+  - Check for CSS conflicts
+
+#### Dark Theme Issues
+- **Issue**: Components don't respect dark theme
+- **Solution**:
+  - Use zinc-950 for backgrounds, zinc-100 for text
+  - Use violet-500/10 for accent backgrounds
+  - Check [src/index.css](mdc:src/index.css) for ViralClips brand colors
+
+#### Responsive Design Issues
+- **Issue**: Mobile/desktop styles not working
+- **Solution**:
+  - Use mobile-first approach with Tailwind breakpoints
+  - Test with [src/hooks/use-mobile.tsx](mdc:src/hooks/use-mobile.tsx) hook
+  - Check browser dev tools for responsive behavior
+
+### Landing Page Issues
+
+#### Logo Not Displaying
+- **Issue**: ViralClips logo not showing
+- **Solution**:
+  - Check logo imports in TopNavigation and Footer
+  - Verify [src/assets/viralclips-logo.svg](mdc:src/assets/viralclips-logo.svg) exists
+  - Check dark/light variant usage based on page background
+
+#### Platform Carousel Not Animating
+- **Issue**: Logo carousel not moving
+- **Solution**:
+  - Check CSS animation in [src/index.css](mdc:src/index.css) (scroll-left keyframes)
+  - Verify LogosCarousel component props
+  - Check for CSS conflicts with animation
+
+### Legal Pages Issues
+
+#### Terms/Privacy Page Not Found
+- **Issue**: /terms or /privacy routes not working
+- **Solution**:
+  - Verify routes in [src/App.tsx](mdc:src/App.tsx)
+  - Check [src/pages/Terms.tsx](mdc:src/pages/Terms.tsx) and [src/pages/Privacy.tsx](mdc:src/pages/Privacy.tsx) exist
+  - Ensure Footer links use correct paths
+
+### Performance Issues
+
+#### Slow Build Times
+- **Issue**: Build takes too long
+- **Solution**:
+  - Check for unnecessary dependencies
+  - Optimize imports (use specific imports)
+  - Consider code splitting for large components
+
+#### Bundle Size Issues
+- **Issue**: Large bundle size
+- **Solution**:
+  - Use dynamic imports for route-based code splitting
+  - Optimize images and assets
+  - Remove unused dependencies
+
+### Linting Issues
+
+#### Biome Errors
+- **Issue**: Biome linting errors
+- **Solution**:
+  - Run `npm run lint:fix` to auto-fix
+  - Check [biome.json](mdc:biome.json) configuration
+  - Review error messages for specific issues
+
+## Debugging Tips
+
+### Console Debugging
+- Use browser dev tools for component inspection
+- Check React DevTools for component state
+- Monitor network requests for API issues
+
+### TypeScript Debugging
+- Use strict TypeScript mode
+- Check type definitions for components
+- Use proper interface definitions
+
+## Common Commands
+```bash
+# Development
+npm run dev          # Start dev server
+npm run build        # Build for production
+npm run preview      # Preview build
+
+# Code Quality
+npm run lint         # Check for issues
+npm run lint:fix     # Fix auto-fixable issues
+npm run lint:fix-all # Fix all issues
+
+# Dependencies
+npm install          # Install dependencies
+npm update           # Update dependencies
+```

@@ -1,0 +1,126 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Development Workflow Guide
+
+## Available Scripts
+From [package.json](mdc:package.json):
+
+### Development
+- `npm run dev` - Start development server with Vite
+- `npm run preview` - Preview production build locally
+
+### Building
+- `npm run build` - Build for production (TypeScript compilation + Vite build)
+
+### Code Quality
+- `npm run lint` - Run Biome linter
+- `npm run lint:fix` - Fix auto-fixable linting issues
+- `npm run lint:fix-all` - Fix all linting issues (including unsafe fixes)
+
+## Development Environment
+
+### TypeScript Configuration
+- Main config: [tsconfig.json](mdc:tsconfig.json)
+- App-specific config: [tsconfig.app.json](mdc:tsconfig.app.json)
+- Node-specific config: [tsconfig.node.json](mdc:tsconfig.node.json)
+
+### Linting & Formatting
+- **Biome**: Used for linting and formatting (configured in [biome.json](mdc:biome.json))
+- **ESLint**: Additional ESLint configuration in [eslint.config.js](mdc:eslint.config.js)
+
+### Build Configuration
+- **Vite**: Configured in [vite.config.ts](mdc:vite.config.ts)
+- **Path Aliases**: `@` maps to `/src` for clean imports
+- **Tailwind**: Integrated via `@tailwindcss/vite` plugin
+
+## Best Practices
+
+### Import Organization
+1. React and external libraries
+2. Internal components and utilities
+3. Relative imports for local files
+
+### Component Structure
+**CRITICAL**: Always use normal functions, never `React.FC`:
+
+```typescript
+// 1. Imports
+import { useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
+
+// 2. Types/Interfaces
+interface ComponentProps {
+  title: string;
+  children?: React.ReactNode;
+  className?: string;
+}
+
+// 3. Component definition - ALWAYS use function, never React.FC
+export function Component({ title, children, className }: ComponentProps) {
+  const [state, setState] = useState(false);
+
+  useEffect(() => {
+    // component logic
+  }, []);
+
+  return (
+    <div className={cn("base-classes", className)}>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  );
+}
+
+// ❌ NEVER do this:
+// export const Component: React.FC<ComponentProps> = ({ ... }) => { ... };
+```
+
+### Styling Guidelines
+- Use Tailwind utility classes for styling
+- Use the `cn()` utility for conditional classes
+- Follow mobile-first responsive design
+- Use design system components when available
+- Dark theme is default (zinc-950 backgrounds, zinc-100 text)
+- Use violet-500 (#8b5cf6) for primary accents
+
+### ViralClips Brand Colors
+```css
+--viralclips-primary: #8b5cf6;        /* violet-500 */
+--viralclips-primary-hover: #7c3aed;  /* violet-600 */
+--viralclips-bg-dark: #09090b;        /* near black */
+--viralclips-bg-secondary: #18181b;   /* zinc-900 */
+--viralclips-bg-tertiary: #27272a;    /* zinc-800 */
+--viralclips-text-primary: #fafafa;
+--viralclips-text-secondary: #a1a1aa;
+```
+
+### State Management
+- Use React hooks for local state
+- Use context for global state when needed
+- Prefer composition over prop drilling
+
+### Error Handling
+- Use error boundaries for component error handling
+- Implement proper loading states
+- Handle async operations with try-catch
+
+## File Naming Conventions
+- **Components**: PascalCase (e.g., `Button.tsx`, `FeaturesSection.tsx`)
+- **Hooks**: camelCase with `use` prefix (e.g., `use-mobile.tsx`)
+- **Utilities**: camelCase (e.g., `utils.tsx`)
+- **Pages**: PascalCase (e.g., `Landing.tsx`, `Terms.tsx`, `Privacy.tsx`)
+- **Assets**: kebab-case (e.g., `viralclips-logo.svg`)
+
+## External Links
+When linking to the ViralClips app:
+- App URL: `https://app.viralclips.ai`
+- Always use `target="_blank"` and `rel="noopener noreferrer"`
+
+## Git Workflow
+- Use descriptive commit messages
+- Follow conventional commits format
+- Keep commits atomic and focused
+- Test changes before committing

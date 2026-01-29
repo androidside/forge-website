@@ -1,0 +1,72 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# ViralClips.ai Website Project Overview
+
+## Project Structure
+This is a React/TypeScript landing page for ViralClips.ai - an AI-powered video clipping SaaS that transforms long-form YouTube videos into viral short-form clips for TikTok, Instagram Reels, and YouTube Shorts.
+
+### Key Technologies
+- **Framework**: React 19.1.0 with TypeScript
+- **Build Tool**: Vite 7.0.0
+- **Styling**: Tailwind CSS 4.1.10
+- **UI Components**: Radix UI primitives with custom design system
+- **Routing**: React Router DOM 7.6.2
+- **State Management**: React hooks and context
+- **Linting**: Biome 0.3.3
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
+
+### Entry Points
+- Main entry: [src/main.tsx](mdc:src/main.tsx)
+- App component: [src/App.tsx](mdc:src/App.tsx)
+- HTML template: [index.html](mdc:index.html)
+
+### Configuration Files
+- Build config: [vite.config.ts](mdc:vite.config.ts)
+- TypeScript config: [tsconfig.json](mdc:tsconfig.json)
+- Package dependencies: [package.json](mdc:package.json)
+- Linting config: [biome.json](mdc:biome.json)
+
+### Key Directories
+- **src/components/**: Reusable UI components
+- **src/components/design-system/**: Custom design system components
+- **src/components/ui/**: Base UI components (shadcn/ui style)
+- **src/components/landing/**: Landing page section components
+- **src/pages/**: Page components for routing
+- **src/hooks/**: Custom React hooks
+- **src/lib/**: Utility functions and helpers
+- **src/assets/**: Static assets (logos, icons)
+
+### Routing Structure
+The app uses React Router with these routes:
+- `/` - Landing page (hero, features, how it works, FAQ, CTA)
+- `/terms` - Terms of Service (required for TikTok/YouTube API approval)
+- `/privacy` - Privacy Policy (required for social media API compliance)
+- `*` - Redirects to landing page
+
+### Brand Information
+- **Name**: ViralClips.ai
+- **Domain**: viralclips.ai
+- **App URL**: https://app.viralclips.ai
+- **Tagline**: "Turn Long Videos Into Viral Clips"
+- **Primary Color**: Violet (#8b5cf6)
+- **Theme**: Dark mode (zinc-950 backgrounds)
+
+### Design System
+The project uses a custom design system built on top of Radix UI primitives with:
+- Custom Button component with multiple variants
+- Consistent spacing and typography
+- Theme-aware components (dark mode first)
+- Accessibility-first approach
+- Violet/pink gradient accents
+
+### Core Product Features (for copy reference)
+1. **AI Clip Detection** - GPT-4 powered viral moment identification
+2. **Smart Transcription** - Whisper with speaker diarization
+3. **Intelligent Reframing** - Auto face tracking for 9:16 vertical
+4. **Professional Subtitles** - Animated captions
+5. **Clip Editor** - Fine-tune clips before export
+6. **One-Click Publishing** - Post to TikTok, YouTube, Instagram, X, LinkedIn, Facebook

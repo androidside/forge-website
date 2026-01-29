@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <defs>
+    <linearGradient id="logoGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <!-- Logo mark: play button with clip/scissors -->
+  <g>
+    <path d="M4 8L4 32L24 20L4 8Z" fill="url(#logoGradientDark)"/>
+    <circle cx="24" cy="20" r="4" fill="#09090b"/>
+  </g>
+  <!-- Text: ViralClips -->
+  <text x="36" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#09090b">
+    Viral<tspan fill="url(#logoGradientDark)">Clips</tspan>
+  </text>
+</svg>

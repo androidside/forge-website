@@ -1,0 +1,58 @@
+.css-quotes-carousel {
+	height: 24rem; /* Increased from 16rem to accommodate 340px cards */
+	overflow: hidden;
+	position: relative;
+	mask: linear-gradient(
+		90deg,
+		transparent 0%,
+		black 160px,
+		black calc(100% - 160px),
+		transparent 100%
+	);
+	-webkit-mask: linear-gradient(
+		90deg,
+		transparent 0%,
+		black 160px,
+		black calc(100% - 160px),
+		transparent 100%
+	);
+}
+
+.css-quotes-track {
+	display: flex;
+	gap: var(--gap);
+	animation: scroll-right var(--animation-duration) linear infinite;
+	width: fit-content;
+}
+
+.css-quotes-carousel:hover .css-quotes-track {
+	animation-play-state: paused;
+}
+
+.css-quotes-item {
+	flex-shrink: 0;
+	width: var(--card-width);
+	min-width: var(--card-width);
+}
+
+@keyframes scroll-right {
+	0% {
+		transform: translateX(calc(-1 * var(--one-set-width)));
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+	.css-quotes-carousel {
+		mask: none;
+		-webkit-mask: none;
+	}
+
+	.css-quote-card {
+		max-width: none;
+		width: 100%;
+	}
+}
