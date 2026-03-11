@@ -4,39 +4,40 @@ const steps = [
 	{
 		number: "01",
 		icon: Link2,
-		title: "Paste a YouTube URL",
+		title: "Paste a URL or Upload",
 		description:
-			"Simply paste the URL of any YouTube video you want to transform into viral clips.",
+			"Paste any YouTube video URL or upload your own footage. Your team can even submit videos from WhatsApp, Telegram, or Slack.",
 	},
 	{
 		number: "02",
 		icon: Wand2,
-		title: "AI Analyzes & Creates Clips",
+		title: "AI Creates Your Clips",
 		description:
-			"Our AI watches your video, identifies viral moments, and generates optimized clips automatically.",
+			"AI detects the best moments, applies face tracking, generates captions, and creates ready-to-post clips automatically.",
 	},
 	{
 		number: "03",
 		icon: Upload,
-		title: "Edit, Export & Publish",
+		title: "Review & Publish Everywhere",
 		description:
-			"Fine-tune your clips, add captions, and publish directly to TikTok, Reels, and Shorts.",
+			"Review drafts with your team, fine-tune in the editor, then publish to TikTok, Instagram, YouTube, X, LinkedIn, and Facebook.",
 	},
 ];
 
 export function HowItWorksSection() {
 	return (
-		<section id="how-it-works" className="py-24 px-4 bg-zinc-900">
+		<section id="how-it-works" className="py-16 sm:py-24 px-4 bg-zinc-900">
 			<div className="max-w-7xl mx-auto">
-				<div className="text-center mb-16">
+				<div className="text-center mb-10 sm:mb-16">
 					<span className="inline-block px-4 py-2 rounded-full bg-violet-500/10 text-violet-400 text-sm font-medium mb-4">
 						How It Works
 					</span>
-					<h2 className="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">
+					<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-100 mb-4">
 						From long video to viral clips in 3 steps
 					</h2>
-					<p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-						No editing skills required. Our AI does the heavy lifting.
+					<p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto">
+						No editing skills required. Upload, let AI do the work, and publish
+						with your team.
 					</p>
 				</div>
 

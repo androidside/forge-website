@@ -11,11 +11,11 @@ export const Footer: React.FC = () => {
 	};
 
 	return (
-		<footer className="w-full py-16 px-8 bg-zinc-950 border-t border-zinc-800">
+		<footer className="w-full py-12 sm:py-16 px-4 sm:px-8 bg-zinc-950 border-t border-zinc-800">
 			<div className="max-w-7xl mx-auto">
-				<div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
 					{/* Logo and Description */}
-					<div className="md:col-span-1">
+					<div>
 						<Link to="/" className="hover:opacity-75 transition-opacity">
 							<img
 								src={viralclipsLogo}
@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
 							/>
 						</Link>
 						<p className="text-zinc-400 text-sm">
-							Turn long videos into viral clips with AI-powered editing.
+							Turn long videos into viral clips. Edit, collaborate, and publish everywhere.
 						</p>
 					</div>
 
@@ -85,40 +85,6 @@ export const Footer: React.FC = () => {
 						</ul>
 					</div>
 
-					{/* Connect Links */}
-					<div>
-						<h3 className="text-zinc-100 font-medium mb-4">Connect</h3>
-						<ul className="space-y-2">
-							<li>
-								<a
-									href="https://twitter.com/viralclipsai"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-zinc-400 hover:text-zinc-100 text-sm transition-colors"
-								>
-									Twitter / X
-								</a>
-							</li>
-							<li>
-								<a
-									href="https://youtube.com/@viralclipsai"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-zinc-400 hover:text-zinc-100 text-sm transition-colors"
-								>
-									YouTube
-								</a>
-							</li>
-							<li>
-								<a
-									href="mailto:hello@viralclips.ai"
-									className="text-zinc-400 hover:text-zinc-100 text-sm transition-colors"
-								>
-									hello@viralclips.ai
-								</a>
-							</li>
-						</ul>
-					</div>
 				</div>
 
 				{/* Bottom Bar */}

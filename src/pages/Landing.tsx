@@ -48,13 +48,13 @@ export function Landing() {
 					<div className="mb-6">
 						<span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium">
 							<Play className="w-4 h-4" />
-							AI-Powered Video Clipping
+							AI-Powered Video Platform
 						</span>
 					</div>
 
 					{/* Headline */}
 					<h1
-						className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6"
+						className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
 						style={{ letterSpacing: "-2px" }}
 					>
 						<span className="text-zinc-100">Turn Long Videos Into </span>
@@ -73,9 +73,9 @@ export function Landing() {
 					</h1>
 
 					{/* Subheadline */}
-					<p className="text-xl sm:text-2xl text-zinc-400 mb-10 max-w-2xl mx-auto">
-						Transform YouTube videos into TikTok, Reels, and Shorts in minutes
-						with AI-powered editing.
+					<p className="text-lg sm:text-xl md:text-2xl text-zinc-400 mb-8 sm:mb-10 max-w-2xl mx-auto px-2">
+						Create clips, edit with AI, collaborate with your team, and publish
+						everywhere — all from one platform.
 					</p>
 
 					{/* Video URL Input */}
@@ -103,23 +103,30 @@ export function Landing() {
 					{/* Social Proof */}
 					<p className="text-zinc-500 text-sm">
 						Join <span className="text-zinc-300 font-medium">10,000+</span>{" "}
-						creators already using ViralClips
+						creators and teams already using ViralClips
 					</p>
 				</div>
 
 				{/* Scroll indicator */}
-				<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-					<div className="w-6 h-10 rounded-full border-2 border-zinc-600 flex justify-center pt-2">
+				<button
+					type="button"
+					onClick={() => {
+						document.getElementById("platforms")?.scrollIntoView({ behavior: "smooth" });
+					}}
+					className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+					aria-label="Scroll down"
+				>
+					<div className="w-6 h-10 rounded-full border-2 border-zinc-600 hover:border-violet-500 transition-colors flex justify-center pt-2">
 						<div className="w-1 h-2 bg-zinc-400 rounded-full" />
 					</div>
-				</div>
+				</button>
 			</section>
 
 			{/* Platform Logos Carousel */}
-			<section className="py-12 bg-zinc-950 border-y border-zinc-800/50">
+			<section id="platforms" className="py-12 bg-zinc-950 border-y border-zinc-800/50">
 				<div className="max-w-7xl mx-auto">
 					<p className="text-center text-zinc-500 text-sm mb-8">
-						Create clips for all major platforms
+						Publish to all major platforms in one click
 					</p>
 					<LogoCarousel speed={25} gap={60} logoWidth={140} logoHeight={40} />
 				</div>
@@ -135,13 +142,13 @@ export function Landing() {
 			<FAQSection />
 
 			{/* Final CTA Section */}
-			<section className="py-24 px-4 bg-gradient-to-b from-zinc-950 to-zinc-900">
+			<section className="py-16 sm:py-24 px-4 bg-gradient-to-b from-zinc-950 to-zinc-900">
 				<div className="max-w-4xl mx-auto text-center">
-					<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-100 mb-6">
+					<h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-100 mb-6">
 						Ready to Go Viral?
 					</h2>
-					<p className="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
-						Start creating scroll-stopping clips from your videos today. No
+					<p className="text-lg sm:text-xl text-zinc-400 mb-8 sm:mb-10 max-w-2xl mx-auto">
+						Start turning your long-form videos into viral clips today. No
 						credit card required.
 					</p>
 					<a
