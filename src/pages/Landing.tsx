@@ -1,26 +1,19 @@
 import type React from "react";
-import { useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
 
 import { LogoCarousel } from "@/components/LogosCarousel";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { FAQSection } from "@/components/landing/FAQSection";
+import { WaitlistForm } from "@/components/landing/WaitlistForm";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/design-system/button/Button";
 
 export function Landing() {
-	const [videoUrl, setVideoUrl] = useState("");
-
-	const handleGetStarted = () => {
-		if (videoUrl) {
-			window.open(
-				`https://app.viralclips.ai?url=${encodeURIComponent(videoUrl)}`,
-				"_blank"
-			);
-		} else {
-			window.open("https://app.viralclips.ai", "_blank");
-		}
+	const scrollToWaitlist = () => {
+		document
+			.getElementById("waitlist")
+			?.scrollIntoView({ behavior: "smooth", block: "center" });
 	};
 
 	return (
@@ -78,32 +71,14 @@ export function Landing() {
 						everywhere — all from one platform.
 					</p>
 
-					{/* Video URL Input */}
-					<div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-xl mx-auto mb-8">
-						<div className="relative flex-1 w-full">
-							<input
-								type="url"
-								value={videoUrl}
-								onChange={(e) => setVideoUrl(e.target.value)}
-								placeholder="Paste a YouTube URL..."
-								className="w-full px-6 py-4 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all"
-							/>
-						</div>
-						<Button
-							variant="primary"
-							size="lg"
-							onClick={handleGetStarted}
-							className="flex items-center gap-2 whitespace-nowrap px-8 py-4 text-lg"
-						>
-							<span>Get Started Free</span>
-							<ArrowRight className="w-5 h-5" />
-						</Button>
+					{/* Waitlist Form */}
+					<div className="mb-8">
+						<WaitlistForm source="landing-hero" id="waitlist" />
 					</div>
 
 					{/* Social Proof */}
 					<p className="text-zinc-500 text-sm">
-						Join <span className="text-zinc-300 font-medium">10,000+</span>{" "}
-						creators and teams already using ViralClips
+						Be one of the first to try ViralClips when we launch.
 					</p>
 				</div>
 
@@ -148,24 +123,21 @@ export function Landing() {
 						Ready to Go Viral?
 					</h2>
 					<p className="text-lg sm:text-xl text-zinc-400 mb-8 sm:mb-10 max-w-2xl mx-auto">
-						Start turning your long-form videos into viral clips today. No
-						credit card required.
+						We're launching soon. Drop your email to get early access the
+						moment we open the doors.
 					</p>
-					<a
-						href="https://app.viralclips.ai"
-						target="_blank"
-						rel="noopener noreferrer"
+					<Button
+						variant="primary"
+						size="lg"
+						onClick={scrollToWaitlist}
+						className="inline-flex items-center gap-2 px-10 py-5 text-lg"
 					>
-						<Button
-							variant="primary"
-							size="lg"
-							className="inline-flex items-center gap-2 px-10 py-5 text-lg"
-						>
-							<span>Start Creating Free</span>
-							<ArrowRight className="w-5 h-5" />
-						</Button>
-					</a>
-					<p className="text-zinc-500 text-sm mt-4">No credit card required</p>
+						<span>Join the Waitlist</span>
+						<ArrowRight className="w-5 h-5" />
+					</Button>
+					<p className="text-zinc-500 text-sm mt-4">
+						No spam. One email at launch.
+					</p>
 				</div>
 			</section>
 

@@ -6,6 +6,7 @@ import {
 	Routes,
 	useLocation,
 } from "react-router-dom";
+import { Toaster } from "./components/ui/sonner";
 import { TopNavigation } from "./components/TopNavigation";
 import { Landing } from "./pages/Landing";
 import { Privacy } from "./pages/Privacy";
@@ -41,6 +42,7 @@ function App() {
 			<main>
 				<AppRoutes />
 			</main>
+			<Toaster />
 		</Router>
 	);
 }
