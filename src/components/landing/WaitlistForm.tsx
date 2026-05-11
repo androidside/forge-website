@@ -13,6 +13,7 @@ type TurnstileRenderOptions = {
 	"error-callback"?: () => void;
 	"expired-callback"?: () => void;
 	theme?: "light" | "dark" | "auto";
+	size?: "normal" | "compact" | "flexible" | "invisible";
 };
 
 declare global {
@@ -22,6 +23,7 @@ declare global {
 				container: HTMLElement,
 				options: TurnstileRenderOptions,
 			) => string;
+			execute: (widgetId: string) => void;
 			reset: (widgetId?: string) => void;
 		};
 	}
@@ -64,11 +66,14 @@ export function WaitlistForm({
 	id,
 }: WaitlistFormProps) {
 	const [email, setEmail] = useState("");
-	const [token, setToken] = useState<string | null>(null);
 	const [submitting, setSubmitting] = useState(false);
 	const [submitted, setSubmitted] = useState(false);
 	const widgetContainerRef = useRef<HTMLDivElement | null>(null);
 	const widgetIdRef = useRef<string | null>(null);
+	const tokenResolverRef = useRef<{
+		resolve: (token: string) => void;
+		reject: (err: Error) => void;
+	} | null>(null);
 
 	const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as
 		| string
@@ -86,10 +91,20 @@ export function WaitlistForm({
 					widgetContainerRef.current,
 					{
 						sitekey: siteKey,
-						callback: (t: string) => setToken(t),
-						"expired-callback": () => setToken(null),
-						"error-callback": () => setToken(null),
+						size: "invisible",
 						theme: "dark",
+						callback: (t: string) => {
+							tokenResolverRef.current?.resolve(t);
+							tokenResolverRef.current = null;
+						},
+						"expired-callback": () => {
+							tokenResolverRef.current?.reject(new Error("expired"));
+							tokenResolverRef.current = null;
+						},
+						"error-callback": () => {
+							tokenResolverRef.current?.reject(new Error("error"));
+							tokenResolverRef.current = null;
+						},
 					},
 				);
 			})
@@ -101,13 +116,46 @@ export function WaitlistForm({
 		};
 	}, []);
 
-	const canSubmit = !!email && !!token && !submitting && !submitted;
+	function fetchTurnstileToken(): Promise<string> {
+		const widgetId = widgetIdRef.current;
+		if (!widgetId || !window.turnstile) {
+			return Promise.reject(new Error("widget_not_ready"));
+		}
+		return new Promise<string>((resolve, reject) => {
+			const timeout = setTimeout(() => {
+				tokenResolverRef.current = null;
+				reject(new Error("timeout"));
+			}, 30_000);
+			tokenResolverRef.current = {
+				resolve: (t) => {
+					clearTimeout(timeout);
+					resolve(t);
+				},
+				reject: (err) => {
+					clearTimeout(timeout);
+					reject(err);
+				},
+			};
+			window.turnstile?.reset(widgetId);
+			window.turnstile?.execute(widgetId);
+		});
+	}
+
+	const canSubmit = !!email && !submitting && !submitted;
 
 	async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		if (!canSubmit || !token) return;
+		if (!canSubmit) return;
 		setSubmitting(true);
 		try {
+			let token: string;
+			try {
+				token = await fetchTurnstileToken();
+			} catch {
+				toast.error("Bot check failed. Please try again.");
+				setSubmitting(false);
+				return;
+			}
 			const res = await fetch("/api/waitlist", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -121,14 +169,10 @@ export function WaitlistForm({
 				toast.success("You're on the list! We'll be in touch.");
 				setSubmitted(true);
 				setEmail("");
-				if (widgetIdRef.current) window.turnstile?.reset(widgetIdRef.current);
-				setToken(null);
 			} else if (data.error === "invalid_email") {
 				toast.error("That email doesn't look right. Mind checking it?");
 			} else if (data.error === "bot_check_failed") {
 				toast.error("Bot check failed. Please try again.");
-				if (widgetIdRef.current) window.turnstile?.reset(widgetIdRef.current);
-				setToken(null);
 			} else if (data.error === "rate_limited") {
 				toast.error("Too many attempts. Try again in a minute.");
 			} else {
@@ -178,7 +222,7 @@ export function WaitlistForm({
 					{!submitted && <ArrowRight className="w-5 h-5" />}
 				</Button>
 			</div>
-			<div ref={widgetContainerRef} className="min-h-[65px]" />
+			<div ref={widgetContainerRef} aria-hidden="true" />
 		</form>
 	);
 }

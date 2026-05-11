@@ -1,3 +1,4 @@
+import { promises as dns } from "node:dns";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { google } from "googleapis";
 
@@ -6,6 +7,19 @@ const EMAIL_MAX_LENGTH = 254;
 const SHEET_TAB = "Signups";
 const TURNSTILE_VERIFY_URL =
 	"https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+async function emailDomainAcceptsMail(domain: string): Promise<boolean> {
+	try {
+		const records = await dns.resolveMx(domain);
+		return Array.isArray(records) && records.length > 0;
+	} catch (err) {
+		const code = (err as NodeJS.ErrnoException).code;
+		if (code === "ENODATA" || code === "ENOTFOUND" || code === "NXDOMAIN") {
+			return false;
+		}
+		return true;
+	}
+}
 
 type WaitlistError =
 	| "method_not_allowed"
@@ -129,6 +143,11 @@ export default async function handler(
 
 	const email = rawEmail.toLowerCase();
 	if (email.length > EMAIL_MAX_LENGTH || !EMAIL_REGEX.test(email)) {
+		return fail(res, 400, "invalid_email");
+	}
+
+	const domain = email.split("@")[1];
+	if (!domain || !(await emailDomainAcceptsMail(domain))) {
 		return fail(res, 400, "invalid_email");
 	}
 
