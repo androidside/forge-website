@@ -1,27 +1,9 @@
 import { Globe, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Footer } from "@/components/Footer";
 
 export function Terms() {
-	const [isAnimating, setIsAnimating] = useState(true);
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setIsAnimating(false);
-		}, 100);
-
-		return () => clearTimeout(timer);
-	}, []);
-
 	return (
-		<div
-			className="min-h-screen flex flex-col pt-16 bg-zinc-100"
-			style={{
-				opacity: isAnimating ? 0 : 1,
-				transform: isAnimating ? "translateY(80px)" : "translateY(0px)",
-				transition: "opacity 0.6s ease, transform 0.6s ease",
-			}}
-		>
+		<div className="min-h-screen flex flex-col pt-16 bg-zinc-100 motion-safe:animate-page-enter">
 			<div className="w-full max-w-4xl mx-auto px-8 md:px-16">
 				{/* Section 1: Terms of Service Headline */}
 				<section className="flex flex-col items-start pt-24 pb-16">
@@ -240,25 +222,10 @@ export function Terms() {
 						>
 							7. Payment Terms
 						</h2>
-						<p className="text-zinc-600 mb-4">
-							Some features require a paid subscription. By subscribing, you
-							agree that:
+						<p className="text-zinc-600">
+							We do not currently charge for the Service. If we add paid
+							features, we will update these Terms before we charge for them.
 						</p>
-						<ul className="text-zinc-600 space-y-2 ml-4">
-							<li>• Subscriptions are billed in advance on a recurring basis</li>
-							<li>
-								• You authorize us to charge your payment method for all
-								applicable fees
-							</li>
-							<li>
-								• Refunds are provided at our discretion and in accordance with
-								our refund policy
-							</li>
-							<li>
-								• We may change pricing with 30 days notice to existing
-								subscribers
-							</li>
-						</ul>
 					</div>
 
 					{/* Termination */}
@@ -270,15 +237,24 @@ export function Terms() {
 							8. Termination
 						</h2>
 						<p className="text-zinc-600 mb-4">
-							You may terminate your account at any time through your account
-							settings. We may suspend or terminate your access if you violate
-							these terms or engage in conduct that we determine is harmful to
-							other users or our Service.
+							You may close your account at any time by emailing{" "}
+							<a
+								href="mailto:privacy@viralclips.ai"
+								className="text-violet-600 hover:underline"
+							>
+								privacy@viralclips.ai
+							</a>
+							. We may suspend or terminate your access if you violate these
+							terms or engage in conduct that we determine is harmful to other
+							users or our Service.
 						</p>
 						<p className="text-zinc-600">
 							Upon termination, your right to use the Service will immediately
-							cease. We will delete your User Content within 30 days of account
-							termination.
+							cease. When you ask us to close your account, within 30 days of
+							your request we delete or anonymize your account information and
+							delete your User Content.
+							Projects in a team you share with other members stay with that
+							team.
 						</p>
 					</div>
 

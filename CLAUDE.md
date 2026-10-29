@@ -24,7 +24,8 @@ The waitlist endpoint that this site uses (`/api/waitlist`) lives **here**, not 
 ## Deployment
 
 - Hosted on **Vercel** with auto-deploy on push to `main`.
-- `vercel.json` rewrites all non-`/api` paths to `/index.html` for SPA routing.
+- `vercel.json` rewrites all non-`/api` paths to `/index.html` for SPA routing, except `/privacy` and `/terms`, which it sends to their prerendered pages.
+- `pnpm build` also prerenders `/privacy` and `/terms` to static HTML (`dist/privacy/index.html`, `dist/terms/index.html`), so crawlers that do not run JavaScript, which may include Meta's, can read the policies. It server-renders `src/entry-server.tsx` into `dist-ssr/`, then `scripts/prerender.mjs` injects the markup and per-page metadata into `dist/index.html`; the browser hydrates that markup. The list of prerendered pages and their titles lives in `src/seo.ts`. `pnpm test` covers the HTML injection.
 - Any file at `api/*.ts` becomes a Vercel **Node serverless function** automatically. No separate deploy step.
 
 ## Waitlist (`api/waitlist.ts`)
@@ -66,7 +67,7 @@ Turnstile test keys (always pass, only valid in dev):
 - `src/components/ui/sonner.tsx` — toaster wrapper (mounted in `App.tsx`)
 - `src/App.tsx` — router + global toaster
 - `api/waitlist.ts` — Vercel serverless function (Turnstile verify + Sheets append)
-- `vercel.json` — SPA rewrite (scoped to exclude `/api/*`)
+- `vercel.json` — prerendered-page rewrites plus the SPA rewrite (scoped to exclude `/api/*`)
 - `tsconfig.api.json` — Node-typed TS config for the `api/` directory
 
 ## Environment Variables

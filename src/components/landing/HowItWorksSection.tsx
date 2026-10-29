@@ -4,9 +4,9 @@ const steps = [
 	{
 		number: "01",
 		icon: Link2,
-		title: "Paste a URL or Upload",
+		title: "Paste a YouTube Link",
 		description:
-			"Paste any YouTube video URL or upload your own footage. Your team can even submit videos from WhatsApp, Telegram, or Slack.",
+			"Paste the link to a public YouTube video. Your team can also send links from Slack or Telegram.",
 	},
 	{
 		number: "02",
@@ -36,8 +36,8 @@ export function HowItWorksSection() {
 						From long video to viral clips in 3 steps
 					</h2>
 					<p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto">
-						No editing skills required. Upload, let AI do the work, and publish
-						with your team.
+						No editing skills required. Paste a link, let AI do the work, and
+						publish with your team.
 					</p>
 				</div>
 

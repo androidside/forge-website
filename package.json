@@ -8,7 +8,8 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc -b && vite build",
+		"build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+		"test": "node --test scripts/prerender-lib.test.mjs",
 		"lint": "npx @biomejs/biome lint ./src",
 		"lint:fix": "npx @biomejs/biome lint ./src --write",
 		"lint:fix-all": "npx @biomejs/biome lint ./src --write --unsafe",

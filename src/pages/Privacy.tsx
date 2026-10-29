@@ -1,27 +1,11 @@
 import { Globe, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Footer } from "@/components/Footer";
 
+const DATA_DELETION_URL = "https://api.viralclips.ai/social/meta/data-deletion";
+
 export function Privacy() {
-	const [isAnimating, setIsAnimating] = useState(true);
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setIsAnimating(false);
-		}, 100);
-
-		return () => clearTimeout(timer);
-	}, []);
-
 	return (
-		<div
-			className="min-h-screen flex flex-col pt-16 bg-zinc-100"
-			style={{
-				opacity: isAnimating ? 0 : 1,
-				transform: isAnimating ? "translateY(80px)" : "translateY(0px)",
-				transition: "opacity 0.6s ease, transform 0.6s ease",
-			}}
-		>
+		<div className="min-h-screen flex flex-col pt-16 bg-zinc-100 motion-safe:animate-page-enter">
 			<div className="w-full max-w-4xl mx-auto px-8 md:px-16">
 				{/* Section 1: Privacy Policy Headline */}
 				<section className="flex flex-col items-start pt-24 pb-16">
@@ -33,10 +17,10 @@ export function Privacy() {
 					</h1>
 					<p className="text-lg md:text-xl text-zinc-600 max-w-4xl text-left">
 						Welcome to ViralClips.ai. J3D Labs, Inc., a Delaware corporation
-						(&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;),
-						operates ViralClips.ai. This Privacy Policy explains how we
-						collect, use, protect, and disclose information when you use our
-						AI-powered video clipping service.
+						(&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), operates
+						ViralClips.ai. This Privacy Policy explains how we collect, use,
+						protect, and disclose information when you use our AI-powered video
+						clipping service.
 					</p>
 					<p className="text-sm text-zinc-500 mt-4">
 						Last updated: October 2026
@@ -63,20 +47,27 @@ export function Privacy() {
 							</h3>
 							<ul className="text-zinc-600 space-y-2 ml-4">
 								<li>
-									• <strong>Account Information:</strong> Email address, name,
-									profile picture (when using social login)
+									• <strong>Account Information:</strong> Your name, email
+									address, and profile picture from your Google account when you
+									sign in with Google
 								</li>
 								<li>
-									• <strong>Video Content:</strong> URLs you submit, videos you
-									upload, and clips you create
+									• <strong>Video Content:</strong> Links to videos you submit,
+									files you upload (such as watermarks and outro videos), and
+									the clips, transcripts, and captions we create from them
+								</li>
+								<li>
+									• <strong>Connected Accounts:</strong> Account details and
+									access tokens for the social media accounts you connect, as
+									described below
+								</li>
+								<li>
+									• <strong>Waitlist:</strong> Your email address, if you join
+									our waitlist on viralclips.ai
 								</li>
 								<li>
 									• <strong>Communications:</strong> Support requests, feedback,
 									and messages you send us
-								</li>
-								<li>
-									• <strong>Payment Information:</strong> Billing details
-									processed securely by our payment provider (Stripe)
 								</li>
 							</ul>
 						</div>
@@ -87,16 +78,19 @@ export function Privacy() {
 							</h3>
 							<ul className="text-zinc-600 space-y-2 ml-4">
 								<li>
-									• <strong>Usage Data:</strong> Features used, clips created,
-									timestamps, error logs
+									• <strong>Sign-in Information:</strong> Your IP address and
+									browser details, which show your browser type and operating
+									system, each time you sign in
 								</li>
 								<li>
-									• <strong>Device Information:</strong> IP address, browser
-									type, operating system
+									• <strong>Usage Data:</strong> The projects and clips you
+									create, the posts you publish or schedule, timestamps, and
+									error logs
 								</li>
 								<li>
-									• <strong>Cookies:</strong> For session management, analytics,
-									and preferences
+									• <strong>Cookies and Local Storage:</strong> To keep you
+									signed in and remember your preferences, as described under
+									Cookies and Local Storage below
 								</li>
 							</ul>
 						</div>
@@ -115,19 +109,22 @@ export function Privacy() {
 						</p>
 						<ul className="text-zinc-600 space-y-2 ml-4">
 							<li>
-								• Videos are temporarily stored on our secure servers during
-								processing
+								• We copy each video you submit to our servers to process it
 							</li>
 							<li>
-								• Generated clips and transcriptions are stored in your account
+								• We store the clips, transcripts, and other files we create in
+								your account
 							</li>
 							<li>
-								• All video content is automatically deleted 30 days after
-								processing unless you save it to your library
+								• We keep your videos, clips, and related files until you delete
+								them or your account is deleted. We do not delete them
+								automatically.
 							</li>
 							<li>
-								• You can manually delete your content at any time from your
-								dashboard
+								• You can delete a clip, or a whole project with its source
+								video and clips, at any time in the app. This removes the files
+								from active storage right away. Copies can remain in our storage
+								backups, as described under Data Retention below.
 							</li>
 						</ul>
 					</div>
@@ -142,25 +139,35 @@ export function Privacy() {
 						</h2>
 						<p className="text-zinc-600 mb-4">
 							<strong>
-								We do not use your videos or personal content to train our AI
+								We do not use your videos or personal content to train AI
 								models.
 							</strong>
 						</p>
 						<p className="text-zinc-600 mb-4">
-							Our AI processing uses third-party services including:
+							We transcribe audio on our own servers with Whisper, an
+							open-source speech recognition model. For other steps, we send
+							data to these AI providers:
 						</p>
 						<ul className="text-zinc-600 space-y-2 ml-4">
 							<li>
-								• <strong>OpenAI (GPT-4):</strong> For clip detection and content
-								analysis
+								• <strong>OpenAI:</strong> Analyzes video transcripts to find,
+								refine, and review clips
 							</li>
 							<li>
-								• <strong>OpenAI (Whisper):</strong> For transcription services
+								• <strong>Google Gemini:</strong> Analyzes a video&rsquo;s audio
+								to tell speakers apart. We can also use it in place of OpenAI to
+								analyze transcripts.
+							</li>
+							<li>
+								• <strong>Anthropic (Claude):</strong> We can use it in place of
+								OpenAI to analyze transcripts.
 							</li>
 						</ul>
 						<p className="text-zinc-600 mt-4">
-							These providers process your content under strict data processing
-							agreements and do not use your content for training their models.
+							We do not send your account details, such as your name or email
+							address, or data from your connected social media accounts to
+							these providers. Each provider processes the data we send under
+							its own API terms.
 						</p>
 					</div>
 
@@ -178,8 +185,10 @@ export function Privacy() {
 						<ul className="text-zinc-600 space-y-4 ml-4">
 							<li>
 								<strong>YouTube API Services:</strong> We use YouTube API
-								Services to fetch video content. By using our YouTube
-								integration, you are also agreeing to be bound by the{" "}
+								Services to find new videos on the YouTube channels you ask us
+								to watch, and to publish clips to the YouTube channels you
+								connect. By using our YouTube integration, you are also agreeing
+								to be bound by the{" "}
 								<a
 									href="https://policies.google.com/privacy"
 									target="_blank"
@@ -200,16 +209,82 @@ export function Privacy() {
 								.
 							</li>
 							<li>
-								<strong>TikTok API:</strong> For publishing clips directly to
-								TikTok. We only access data necessary for posting content you
-								explicitly authorize.
+								<strong>TikTok API:</strong> To publish clips to the TikTok
+								accounts you connect.
 							</li>
 							<li>
-								<strong>Meta (Instagram/Facebook):</strong> For publishing to
-								Instagram Reels and Facebook. We comply with Meta's Platform
-								Terms and data usage policies.
+								<strong>LinkedIn and X:</strong> To publish clips to the
+								LinkedIn and X accounts you connect.
+							</li>
+							<li>
+								<strong>Meta (Instagram/Facebook):</strong> To publish clips as
+								Instagram Reels and Facebook Page videos. The next section
+								explains what Facebook and Instagram data we use.
 							</li>
 						</ul>
+					</div>
+
+					{/* Facebook and Instagram Data */}
+					<div className="mb-12">
+						<h2
+							className="text-2xl md:text-3xl font-regular text-zinc-900 mb-6"
+							style={{ letterSpacing: "-0.5px" }}
+						>
+							Facebook and Instagram Data
+						</h2>
+						<p className="text-zinc-600 mb-4">
+							When you connect, we read the list of Facebook Pages and Instagram
+							professional accounts you manage so you can choose which ones to
+							connect. For each account you connect, we store:
+						</p>
+						<ul className="text-zinc-600 space-y-2 ml-4">
+							<li>
+								• <strong>Account Details:</strong> The Page&rsquo;s ID and
+								name; the Instagram account&rsquo;s ID, username, name, profile
+								link, and profile picture URL; and the user ID that Facebook
+								assigns you for ViralClips
+							</li>
+							<li>
+								• <strong>Access Tokens:</strong> The tokens that let ViralClips
+								act for the account. We encrypt them with AES-256-GCM before we
+								store them.
+							</li>
+							<li>
+								• <strong>Posts:</strong> For each post you publish through
+								ViralClips, its ID, link, and caption, plus its views, likes,
+								comments, and shares
+							</li>
+						</ul>
+						<p className="text-zinc-600 mt-4">
+							We use this data only to show the accounts you connected, publish
+							and schedule your clips, edit or delete posts you published
+							through ViralClips when you ask us to, and show how your posts
+							perform. To show a post in the app, we may also read its text,
+							link, and publish date from Facebook or Instagram. We do not sell
+							this data, use it for advertising, or send it to our AI providers.
+							We comply with Meta&rsquo;s Platform Terms and Developer Policies.
+						</p>
+						<p className="text-zinc-600 mt-4">
+							Disconnecting an account in the app deletes its access tokens
+							right away. We keep its account details until you ask us to delete
+							them, and we keep post records until you delete the project that
+							contains the clip or ask us to delete them. To delete your
+							Facebook and Instagram data, follow the steps at{" "}
+							<a
+								href={DATA_DELETION_URL}
+								className="text-violet-600 hover:underline break-all"
+							>
+								{DATA_DELETION_URL}
+							</a>{" "}
+							or email{" "}
+							<a
+								href="mailto:privacy@viralclips.ai"
+								className="text-violet-600 hover:underline"
+							>
+								privacy@viralclips.ai
+							</a>
+							.
+						</p>
 					</div>
 
 					{/* OAuth Data Handling */}
@@ -228,13 +303,20 @@ export function Privacy() {
 								• We only request permissions necessary for the features you use
 							</li>
 							<li>
-								• Access tokens are stored securely and encrypted at rest
+								• We encrypt access tokens with AES-256-GCM before we store them
 							</li>
 							<li>
-								• You can disconnect accounts at any time from your settings
+								• You can disconnect an account at any time in the app, which
+								deletes its access tokens
 							</li>
 							<li>
-								• We never post content without your explicit action
+								• We post to your accounts only when you publish or schedule a
+								clip, or when Autopilot posts for you
+							</li>
+							<li>
+								• Autopilot is off until you turn it on and choose the accounts
+								it may post to. It then posts clips that you or our AI review
+								mark for posting, on the schedule you set.
 							</li>
 						</ul>
 					</div>
@@ -251,39 +333,47 @@ export function Privacy() {
 						<ul className="text-zinc-600 space-y-2 ml-4">
 							<li>• Provide and improve our video clipping services</li>
 							<li>• Process your videos and generate clips</li>
+							<li>• Publish clips to the social media accounts you connect</li>
 							<li>• Manage your account and provide customer support</li>
-							<li>• Send service updates and transactional emails</li>
-							<li>• Analyze usage patterns to improve our Service</li>
+							<li>
+								• Reply to your messages and tell you about important changes to
+								the Service
+							</li>
+							<li>• Find and fix errors</li>
 							<li>• Prevent fraud and ensure platform security</li>
 							<li>• Comply with legal obligations</li>
 						</ul>
 					</div>
 
-					{/* Cookie Policy */}
+					{/* Cookies and Local Storage */}
 					<div className="mb-12">
 						<h2
 							className="text-2xl md:text-3xl font-regular text-zinc-900 mb-6"
 							style={{ letterSpacing: "-0.5px" }}
 						>
-							Cookie Policy
+							Cookies and Local Storage
 						</h2>
-						<p className="text-zinc-600 mb-4">We use cookies for:</p>
+						<p className="text-zinc-600 mb-4">
+							We do not use advertising or analytics cookies. We use:
+						</p>
 						<ul className="text-zinc-600 space-y-2 ml-4">
 							<li>
-								• <strong>Essential Cookies:</strong> Required for the Service
-								to function (authentication, security)
+								• <strong>Local Storage for Sign-in:</strong> The app keeps your
+								sign-in session in your browser&rsquo;s local storage
 							</li>
 							<li>
-								• <strong>Analytics Cookies:</strong> To understand how you use
-								our Service (can be disabled)
+								• <strong>A Preference Cookie:</strong> The app sets one cookie
+								to remember whether its sidebar is open or collapsed
 							</li>
 							<li>
-								• <strong>Preference Cookies:</strong> To remember your settings
-								and preferences
+								• <strong>Bot Protection:</strong> Our waitlist form uses
+								Cloudflare Turnstile to check that a person, not a bot, is
+								signing up
 							</li>
 						</ul>
 						<p className="text-zinc-600 mt-4">
-							You can manage cookie preferences in your browser settings.
+							You can clear cookies and local storage in your browser settings.
+							Clearing local storage signs you out of the app.
 						</p>
 					</div>
 
@@ -296,20 +386,25 @@ export function Privacy() {
 							Data Sharing and Disclosure
 						</h2>
 						<p className="text-zinc-600 mb-4">
-							We do not sell your personal information. We may share data with:
+							We do not sell your personal information. We share data only with:
 						</p>
 						<ul className="text-zinc-600 space-y-2 ml-4">
 							<li>
-								• Service providers under confidentiality agreements (hosting,
-								payment processing, analytics)
+								• Other members of your team, who can see the team&rsquo;s
+								projects, clips, and connected accounts
 							</li>
 							<li>
-								• Social media platforms when you explicitly choose to publish
-								content
+								• Service providers that run parts of the Service for us: Amazon
+								Web Services (hosting, file storage, and databases), Vercel
+								(hosting for this website), Google (sign-in and the spreadsheet
+								that holds our waitlist), Cloudflare (bot protection), and the
+								AI providers listed above
 							</li>
 							<li>
-								• Law enforcement when required by valid legal process
+								• Social media platforms you connect, when you publish or
+								schedule a post or Autopilot posts for you
 							</li>
+							<li>• Law enforcement when required by valid legal process</li>
 							<li>
 								• Business successors in the event of a merger or acquisition
 							</li>
@@ -326,20 +421,42 @@ export function Privacy() {
 						</h2>
 						<ul className="text-zinc-600 space-y-2 ml-4">
 							<li>
-								• Account information is retained while your account is active
+								• We keep your account information while your account is open
 							</li>
 							<li>
-								• Processed videos are deleted 30 days after processing
+								• We keep your videos, clips, transcripts, and related files
+								until you delete them or your account is deleted. We do not
+								delete them automatically.
 							</li>
 							<li>
-								• Saved clips are retained until you delete them or close your
-								account
+								• When you delete files in the app, we remove them from active
+								storage right away, but copies can remain in our storage backups
+								until we remove them. To have those copies removed, email{" "}
+								<a
+									href="mailto:privacy@viralclips.ai"
+									className="text-violet-600 hover:underline"
+								>
+									privacy@viralclips.ai
+								</a>
+								.
 							</li>
 							<li>
-								• Usage logs are retained for 90 days for security purposes
+								• Projects belong to your team. If other members remain on the
+								team, its projects stay with them after you leave or your
+								account is deleted.
 							</li>
+							<li>• We keep server logs for 30 days</li>
 							<li>
-								• Upon account deletion, all data is removed within 30 days
+								• To delete your account or other data, email{" "}
+								<a
+									href="mailto:privacy@viralclips.ai"
+									className="text-violet-600 hover:underline"
+								>
+									privacy@viralclips.ai
+								</a>
+								. Within 30 days of your request, we delete or anonymize your
+								account and sign-in information and delete the files you asked
+								us to delete.
 							</li>
 						</ul>
 					</div>
@@ -353,13 +470,18 @@ export function Privacy() {
 							Data Security
 						</h2>
 						<p className="text-zinc-600 mb-3">
-							We implement industry-standard security measures:
+							We protect your data with these measures:
 						</p>
 						<ul className="text-zinc-600 space-y-2 ml-4">
-							<li>• Encryption in transit (TLS 1.3) and at rest (AES-256)</li>
-							<li>• Secure cloud infrastructure with SOC 2 compliance</li>
-							<li>• Regular security audits and penetration testing</li>
-							<li>• Access controls and employee security training</li>
+							<li>• We encrypt data in transit with HTTPS</li>
+							<li>
+								• We encrypt social media access tokens with AES-256-GCM before
+								we store them
+							</li>
+							<li>
+								• Amazon Web Services encrypts our file storage and database at
+								rest
+							</li>
 						</ul>
 					</div>
 
@@ -393,8 +515,9 @@ export function Privacy() {
 								className="text-violet-600 hover:underline"
 							>
 								privacy@viralclips.ai
-							</a>{" "}
-							or use the settings in your account dashboard.
+							</a>
+							. You can also delete clips and projects, and disconnect social
+							media accounts, yourself in the app.
 						</p>
 					</div>
 

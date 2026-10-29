@@ -7,9 +7,9 @@ import {
 
 const faqs = [
 	{
-		question: "What video formats are supported?",
+		question: "What videos can I clip?",
 		answer:
-			"ViralClips supports YouTube URLs directly — just paste any public video URL. You can also upload videos in MP4, MOV, and WebM formats up to 2GB, or submit them from WhatsApp, Telegram, or Slack.",
+			"Paste a link to a public YouTube video. If your team connects Slack or Telegram, you can also post YouTube links there to start clipping.",
 	},
 	{
 		question: "How does team collaboration work?",
@@ -32,14 +32,14 @@ const faqs = [
 			"Absolutely. You can use custom prompts to guide the AI toward specific segments — for example, focusing on key takeaways, funny moments, or product mentions. The AI adapts to your content strategy.",
 	},
 	{
-		question: "Is there a free plan?",
+		question: "Is ViralClips free?",
 		answer:
-			"Yes! Our free plan includes 10 clips per month with core features. Upgrade to Pro for unlimited clips, priority processing, team workspaces, and multi-platform publishing.",
+			"ViralClips is currently free to use. If we add paid features, we will update our Terms of Service before we charge for them.",
 	},
 	{
 		question: "How does ViralClips handle my data?",
 		answer:
-			"We take privacy seriously. Your videos are processed securely and deleted from our servers after 30 days. We never use your content to train AI models or share it with third parties. See our Privacy Policy for details.",
+			"We keep your videos and clips until you delete them or your account is deleted. We never sell your content or use it to train AI models. We share it with your team, the social accounts you publish to, and the service providers that run ViralClips, such as Amazon Web Services and our AI providers. See our Privacy Policy for the full details.",
 	},
 ];
 

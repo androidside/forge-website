@@ -36,9 +36,9 @@ const features = [
 	},
 	{
 		icon: MessageSquare,
-		title: "Post from Anywhere",
+		title: "Submit from Slack or Telegram",
 		description:
-			"Submit and review clips directly from WhatsApp, Telegram, or Slack. Your team can collaborate wherever they already work.",
+			"Post a YouTube link in Slack or Telegram to start clipping, so your team can send videos from the tools they already use.",
 	},
 	{
 		icon: Share2,
