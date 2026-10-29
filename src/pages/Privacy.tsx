@@ -32,12 +32,14 @@ export function Privacy() {
 						Privacy Policy
 					</h1>
 					<p className="text-lg md:text-xl text-zinc-600 max-w-4xl text-left">
-						Welcome to ViralClips.ai. This Privacy Policy explains how we
+						Welcome to ViralClips.ai. J3D Labs, Inc., a Delaware corporation
+						(&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;),
+						operates ViralClips.ai. This Privacy Policy explains how we
 						collect, use, protect, and disclose information when you use our
 						AI-powered video clipping service.
 					</p>
 					<p className="text-sm text-zinc-500 mt-4">
-						Last updated: January 2026
+						Last updated: October 2026
 					</p>
 				</section>
 
@@ -443,7 +445,7 @@ export function Privacy() {
 						For privacy-related questions or requests:
 					</p>
 					<div className="text-zinc-700">
-						<p className="mb-2">ViralClips.ai Privacy Team</p>
+						<p className="mb-2">J3D Labs, Inc. (ViralClips.ai Privacy Team)</p>
 						<p className="mb-2 flex items-center gap-2">
 							<Mail className="w-4 h-4 text-violet-600" />
 							<a
