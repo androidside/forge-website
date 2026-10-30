@@ -266,10 +266,18 @@ export function Privacy() {
 						</p>
 						<p className="text-zinc-600 mt-4">
 							Disconnecting an account in the app deletes its access tokens
-							right away. We keep its account details until you ask us to delete
-							them, and we keep post records until you delete the project that
-							contains the clip or ask us to delete them. To delete your
-							Facebook and Instagram data, follow the steps at{" "}
+							right away. After that, we keep only the account&rsquo;s ID, its
+							name or username, and the user ID that Facebook assigns you for
+							ViralClips. Your team&rsquo;s post history uses the ID and the
+							name or username to show where each post went, and we use your
+							user ID to match a later deletion request from Meta. We keep these
+							details until you ask us to delete them, and we keep post records
+							until you delete the project that contains the clip or ask us to
+							delete them. While you choose which accounts to connect, we hold
+							an encrypted copy of your access token in a temporary record. We
+							delete it when you finish connecting, or after 10 minutes if you
+							do not finish. To delete your Facebook and Instagram data, follow
+							the steps at{" "}
 							<a
 								href={DATA_DELETION_URL}
 								className="text-violet-600 hover:underline break-all"
@@ -284,6 +292,28 @@ export function Privacy() {
 								privacy@viralclips.ai
 							</a>
 							.
+						</p>
+						<p className="text-zinc-600 mt-4">
+							When Meta asks us to delete your data, we use the user ID that
+							Facebook assigns you for ViralClips to find the Facebook Pages and
+							Instagram accounts you connected. For each one, we delete the
+							account details, access tokens, and post records. We also delete
+							any connection you started but did not finish. The request cannot
+							find an account that someone else connected again after you, or
+							any account once we have deleted your ViralClips account, because
+							we no longer link it to your user ID. Email{" "}
+							<a
+								href="mailto:privacy@viralclips.ai"
+								className="text-violet-600 hover:underline"
+							>
+								privacy@viralclips.ai
+							</a>{" "}
+							to have that data deleted. For each request, we keep only a
+							one-way hash of your user ID, a confirmation code, the result, and
+							the time we processed it. You can check the request&rsquo;s status
+							with its confirmation code. Deleted data can remain in our
+							database backups for up to 7 days and in our server logs for up to
+							30 days, until they expire.
 						</p>
 					</div>
 
@@ -443,7 +473,14 @@ export function Privacy() {
 							<li>
 								• Projects belong to your team. If other members remain on the
 								team, its projects stay with them after you leave or your
-								account is deleted.
+								account is deleted. When we delete your account, we disconnect
+								every Facebook Page and Instagram account you connected, in
+								every team, and delete their access tokens and the user ID that
+								Facebook assigns you for ViralClips. In a team where you were
+								the only member, we also delete those accounts and their post
+								records. In a team with other members, each account&rsquo;s ID,
+								its name or username, and its post records stay with the team
+								until you or a team member asks us to delete them.
 							</li>
 							<li>• We keep server logs for 30 days</li>
 							<li>
