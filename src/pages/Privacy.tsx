@@ -23,7 +23,7 @@ export function Privacy() {
 						clipping service.
 					</p>
 					<p className="text-sm text-zinc-500 mt-4">
-						Last updated: October 29, 2026
+						Last updated: October 30, 2026
 					</p>
 				</section>
 
@@ -239,10 +239,10 @@ export function Privacy() {
 						</p>
 						<ul className="text-zinc-600 space-y-2 ml-4">
 							<li>
-								• <strong>Account Details:</strong> The Page&rsquo;s ID and
-								name; the Instagram account&rsquo;s ID, username, name, profile
-								link, and profile picture URL; and the user ID that Facebook
-								assigns you for ViralClips
+								• <strong>Account Details:</strong> The Page&rsquo;s ID, name,
+								and profile link; the Instagram account&rsquo;s ID, username,
+								name, profile link, and the ID of the Facebook Page it is linked
+								to; and the user ID that Facebook assigns you for ViralClips
 							</li>
 							<li>
 								• <strong>Access Tokens:</strong> The tokens that let ViralClips
@@ -252,7 +252,8 @@ export function Privacy() {
 							<li>
 								• <strong>Posts:</strong> For each post you publish through
 								ViralClips, its ID, link, and caption, plus its views, likes,
-								comments, and shares
+								comments, and shares. For some Instagram posts, we also store
+								reach.
 							</li>
 						</ul>
 						<p className="text-zinc-600 mt-4">
@@ -317,8 +318,8 @@ export function Privacy() {
 							code made from the ID, not the ID itself. A successful retry
 							deletes the error message. You can check the request&rsquo;s
 							status with its confirmation code. Deleted data can remain in our
-							database backups for up to 7 days and in our server logs for up to
-							30 days, until they expire.
+							database backups for up to 7 days, and in our server logs and job
+							queue event logs for up to 30 days, until they expire.
 						</p>
 					</div>
 
@@ -489,7 +490,9 @@ export function Privacy() {
 								delete the records of posts made from clips in a team where you
 								were the only member, because we delete those clips.
 							</li>
-							<li>• We keep server logs for 30 days</li>
+							<li>
+								• We keep server logs and job queue event logs for up to 30 days
+							</li>
 							<li>
 								• To delete your account or other data, email{" "}
 								<a
