@@ -23,7 +23,7 @@ export function Privacy() {
 						clipping service.
 					</p>
 					<p className="text-sm text-zinc-500 mt-4">
-						Last updated: October 2026
+						Last updated: October 29, 2026
 					</p>
 				</section>
 
@@ -298,10 +298,11 @@ export function Privacy() {
 							Facebook assigns you for ViralClips to find the Facebook Pages and
 							Instagram accounts you connected. For each one, we delete the
 							account details, access tokens, and post records. We also delete
-							any connection you started but did not finish. The request cannot
-							find an account that someone else connected again after you, or
-							any account once we have deleted your ViralClips account, because
-							we no longer link it to your user ID. Email{" "}
+							any connection you started but did not finish, within about 10
+							minutes of Facebook sending you back to ViralClips. The request
+							cannot find an account that someone else connected again after
+							you, or any account once we have deleted your ViralClips account,
+							because we no longer link it to your user ID. Email{" "}
 							<a
 								href="mailto:privacy@viralclips.ai"
 								className="text-violet-600 hover:underline"
@@ -309,9 +310,13 @@ export function Privacy() {
 								privacy@viralclips.ai
 							</a>{" "}
 							to have that data deleted. For each request, we keep only a
-							one-way hash of your user ID, a confirmation code, the result, and
-							the time we processed it. You can check the request&rsquo;s status
-							with its confirmation code. Deleted data can remain in our
+							confirmation code, the result, the times we received and processed
+							the request, how many accounts and post records we deleted, a
+							one-way hash of your user ID, and, if processing fails, the latest
+							error message, without your user ID. A one-way hash is a scrambled
+							code made from the ID, not the ID itself. A successful retry
+							deletes the error message. You can check the request&rsquo;s
+							status with its confirmation code. Deleted data can remain in our
 							database backups for up to 7 days and in our server logs for up to
 							30 days, until they expire.
 						</p>
@@ -480,7 +485,9 @@ export function Privacy() {
 								the only member, we also delete those accounts and their post
 								records. In a team with other members, each account&rsquo;s ID,
 								its name or username, and its post records stay with the team
-								until you or a team member asks us to delete them.
+								until you or a team member asks us to delete them. We still
+								delete the records of posts made from clips in a team where you
+								were the only member, because we delete those clips.
 							</li>
 							<li>• We keep server logs for 30 days</li>
 							<li>
